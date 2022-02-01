@@ -23,7 +23,7 @@ void Comp1_init(void)
 {
     TRISFbits.TRISF7=1;		// set pin RF7 as input
     CM1NCHbits.NCH=0b011; 	// pin RF7 as input for comparator
-    CM1PCHbits.PCH=0b101;   //use DAC output for positive input
+    CM1PCHbits.PCH=0b101;   // use DAC output for positive input
     CM1CON0bits.HYS=1;      //a little bit of hysteresis to stop multiple triggers
     CM1CON0bits.POL=1;      //needed for interrupt to work
     CM1CON1bits.INTP=1; 	//set interrupt flag on positive going edge
