@@ -22,7 +22,7 @@ void main(void) {
     TRISHbits.TRISH3=0; //set TRIS value for pin (output) - TRISx registers (data direction)
     
     Interrupts_init(); // Enable Interrupt
-    Comp1_init();// Enbale Comparator
+    Comp1_init();// Enable Comparator
     Timer0_init();// Enable timer0
     LEDarray_init();// Enable LED array (from lab 2)
     
