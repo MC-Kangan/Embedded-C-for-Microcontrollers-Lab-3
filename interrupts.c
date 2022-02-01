@@ -13,9 +13,10 @@ void Interrupts_init(void)
 {
 	// turn on global interrupts, peripheral interrupts and the interrupt source 
 	// It's a good idea to turn on global interrupts last, once all other interrupt configuration is done.
-    PIE2bits.C1IE = 1; // From instruction: To make use of the comparator interrupt you need to enable it by setting C1IE in the PIE2 register 
-                       // and check the C1IF bit in PIR2 in your ISR.
-    INTCONbits.GIEL = 1;// Enable peripheral interrupts (PEIE also ok, see datasheet)
+    //PIE2bits.C1IE = 1; // From instruction: To make use of the comparator interrupt you need to enable it by setting C1IE in the PIE2 register 
+                       // and check the C1IF bit in PIR2 in your ISR.(From datasheet P224)
+    PIE0bits.TMR0IE = 1; // Turn on TMR0 interrupt source (From datasheet P222)
+    INTCONbits.GIEL = 1;// Enable peripheral interrupts (PEIE also ok, see datasheet P209)
     INTCONbits.GIE=1; 	//turn on interrupts globally (when this is off, all interrupts are deactivated)
 }
 
@@ -27,9 +28,9 @@ void Interrupts_init(void)
 void __interrupt(high_priority) HighISR()
 {
 	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...	
-    if (PIR2bits.C1IF){ // if C1IF ==1    //check the interrupt source
+    if (PIR0bits.TMR0IF){ // if TMR0IF ==1    //check the interrupt source
         LATHbits.LATH3 = !LATHbits.LATH3; //toggle LED (same procedure as lab-1)
-        PIR2bits.C1IF = 0; 						//clear the interrupt flag!
+        PIR0bits.TMR0IF = 0; 						//clear the interrupt flag!
     }
 }
 
