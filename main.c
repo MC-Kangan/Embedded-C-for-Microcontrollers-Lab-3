@@ -24,6 +24,6 @@ void main(void) {
     Comp1_init();// Comparator
     
     while (1) {
-		//Sleep();
+		Sleep(); // Sleep mode
     }
 }
