@@ -20,7 +20,6 @@ void main(void) {
     LATHbits.LATH3=0;   //set initial output state - LATx registers (output latch)
     TRISHbits.TRISH3=0; //set TRIS value for pin (output) - TRISx registers (data direction)
     
-    
     Interrupts_init(); // Interrupt
     Comp1_init();// Comparator
     
