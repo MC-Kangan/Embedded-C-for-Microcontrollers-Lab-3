@@ -5,11 +5,20 @@
  * Function to turn on interrupts and set if priority is used
  * Note you also need to enable peripheral interrupts in the INTCON register to use CM1IE.
 ************************************/
+
+// PIE enables individual interrupts (e.g. set PIE2bits.C1IE = 1)
+// PIR are the flags that tells you which interrupt was triggered (e.g. check PIR2bits.C1IF = 1)
+
 void Interrupts_init(void)
 {
 	// turn on global interrupts, peripheral interrupts and the interrupt source 
 	// It's a good idea to turn on global interrupts last, once all other interrupt configuration is done.
+    PIE2bits.C1IE = 1; // From instruction: To make use of the comparator interrupt you need to enable it by setting C1IE in the PIE2 register 
+                       // and check the C1IF bit in PIR2 in your ISR.
+    INTCONbits.GIEL = 1;// Enable peripheral interrupts (PEIE also ok, see datasheet)
+    INTCONbits.GIE=1; 	//turn on interrupts globally (when this is off, all interrupts are deactivated)
 }
+
 
 /************************************
  * High priority interrupt service routine
@@ -17,6 +26,10 @@ void Interrupts_init(void)
 ************************************/
 void __interrupt(high_priority) HighISR()
 {
-	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...
+	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...	
+    if (PIR2bits.C1IF){ // if C1IF ==1    //check the interrupt source
+        LATHbits.LATH3 = !LATHbits.LATH3; //toggle LED (same procedure as lab-1)
+        PIR2bits.C1IF = 0; 						//clear the interrupt flag!
+    }
 }
 
