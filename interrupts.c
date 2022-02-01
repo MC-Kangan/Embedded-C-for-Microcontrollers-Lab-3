@@ -30,6 +30,8 @@ void __interrupt(high_priority) HighISR()
 	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...	
     if (PIR0bits.TMR0IF){ // if TMR0IF ==1    //check the interrupt source
         LATHbits.LATH3 = !LATHbits.LATH3; //toggle LED (same procedure as lab-1)
+        //TMR0H = 65535;            // Re-write initial values
+        //TMR0L = 3035; 
         PIR0bits.TMR0IF = 0; 						//clear the interrupt flag!
     }
 }
