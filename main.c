@@ -27,6 +27,7 @@ void main(void) {
     LEDarray_init();// Enable LED array (from lab 2)
     
     while (1) {
-		LEDarray_disp_bin(TMR0L); // Current timer value
+        unsigned int disp_value = get16bitTMR0val(); // This contains the 8 most significant figures
+		LEDarray_disp_bin(disp_value); // Current timer value
     }
 }
