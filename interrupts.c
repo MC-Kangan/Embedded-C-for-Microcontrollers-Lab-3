@@ -28,11 +28,11 @@ void Interrupts_init(void)
 void __interrupt(high_priority) HighISR()
 {
 	//add your ISR code here i.e. check the flag, do something (i.e. toggle an LED), clear the flag...	
-    if (PIR0bits.TMR0IF){ // if TMR0IF ==1    //check the interrupt source
-        LATHbits.LATH3 = !LATHbits.LATH3; //toggle LED (same procedure as lab-1)
-        //TMR0H = 65535;            // Re-write initial values
-        //TMR0L = 3035; 
-        PIR0bits.TMR0IF = 0; 						//clear the interrupt flag!
+    if (PIR0bits.TMR0IF){ // if TMR0IF ==1      //check the interrupt source for the comparator; When surrounding light is dark, turn on LED; vice versa.
+        LATHbits.LATH3 = !LATHbits.LATH3;   //toggle LED (same procedure as lab-1)
+        TMR0H = 0b00001011;             // Re-write high reg, which contains the 8 most sig bits of 3035
+        TMR0L = 0b11011011;             // Re-write low reg, which contains the 8 least sig bits of 3035
+        PIR0bits.TMR0IF = 0; 			        //clear the interrupt flag!
     }
 }
 

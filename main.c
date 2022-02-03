@@ -18,8 +18,8 @@ void main(void) {
 	//call your initialisation functions to set up the hardware modules
 
      // setup pin for output (connected to LED2 - RH3)
-    LATHbits.LATH3=0;   //set initial output state - LATx registers (output latch)
-    TRISHbits.TRISH3=0; //set TRIS value for pin (output) - TRISx registers (data direction)
+    LATHbits.LATH3 = 0;   // LATx registers (output latch),set the light to be on initially 
+    TRISHbits.TRISH3 = 0; // TRISx registers (data direction), set TRIS value for pin (output)
     
     Interrupts_init(); // Enable Interrupt
     Comp1_init();// Enable Comparator
